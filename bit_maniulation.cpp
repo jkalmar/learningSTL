@@ -61,7 +61,7 @@ SCENARIO( "Bit manipulations" )
 
     SECTION( "Bitwise NOT" )
     {
-        uint8_t result = ~bits; // We get negation by aplying ~ (tilda) unary operator in front of number
+        uint8_t result = ~bits; // We get negation by aplying ~ (tilda) operator in front of number
 
         REQUIRE( NUM( result ) == 0b10110100u );
     }
@@ -103,8 +103,16 @@ SCENARIO( "Representing colors as RGB with alpha value" )
 
     WHEN( "Need to get RED value" )
     {
+        // Lets first prepare the mask, remember that bitwise AND works 1 & 1 = 1 and everything
+        // else is 0
+        // We can use this to zero everything else except for RED value
         uint32_t mask = 0xFF000000;
+
+        // Do the masking - the result is 0xXX000000
         uint32_t result_32_bit = RGBA & mask;
+
+        // The result contains RED value but the value is on wrong position ( bit 24 - bit 31 )
+        // We need it in bit 0 - 7, so just move it to left by 24 places
         uint8_t result_red = ( RGBA & mask ) >> 24;
 
         REQUIRE( result_32_bit == 0xE6000000u );
@@ -112,11 +120,15 @@ SCENARIO( "Representing colors as RGB with alpha value" )
 
         WHEN( "Need to represent RED as bits" )
         {
+            // Usually when printing bytes the functions prints them as numbers or strings
+            // And after all our RGBA is a 32bit (4bytes) unsigned number
+            // To print the bites as a sequence of 0 and 1 (among other stuff) c++ provides std::bitset
             std::bitset< 32 > bits_result_32 = result_32_bit;
             std::bitset< 8 > bits_red = result_red;
 
             THEN( "Use std::bitset<> methods" )
             {
+                // Now to print it just use the to_string() method
                 REQUIRE( bits_result_32.to_string().length() == 32 );
                 REQUIRE( bits_result_32.to_string() == "11100110000000000000000000000000" );
 
