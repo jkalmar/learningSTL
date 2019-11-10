@@ -20,6 +20,10 @@ void endian_example()
     }
 }
 
+/**
+ * These examples show how to do bit manipulations and operation in C++
+ * Standart bit operation are shown as well as utility functions from C++20 STL bit.h
+ */
 void bit_examples()
 {
     endian_example();
@@ -81,10 +85,6 @@ void bit_examples()
     cout << "number >> 8:      " << bitset< 16 >( number >> 8 ) << endl;
 }
 
-/**
- * These examples show how to do bit manipulations and operation in C++
- * Standart bit operation are shown as well as utility functions from C++20 STL bit.h
- */
 int main()
 {
     bit_examples();
