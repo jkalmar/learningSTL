@@ -2,149 +2,88 @@
 #include <bitset>
 #include <iostream>
 
-void bit_cast_example()
-{
-
-}
-
-/**
- * Checks if x is an integral power of two
- */
-void ispow2_example()
-{
-    std::cout << "1 ispow2: " << std::ispow2( 1u ) << std::endl;
-    std::cout << "2 ispow2: " << std::ispow2( 2u ) << std::endl;
-    std::cout << "3 ispow2: " <<  std::ispow2( 3u ) << std::endl;
-    std::cout << "4 ispow2: " <<  std::ispow2( 4u ) << std::endl;
-    std::cout << "65556 ispow2: " <<  std::ispow2( 65556u ) << std::endl;
-
-}
-
-void ceil2_example()
-{
-    std::cout << "4 ceil2: " <<  std::ceil2( 4u ) << std::endl;
-    std::cout << "3 ceil2: " <<  std::ceil2( 3u ) << std::endl;
-    std::cout << "65556 ceil2: " <<  std::ceil2( 65556u ) << std::endl;
-}
-
-void floor2_example()
-{
-    std::cout << "4 floor2: " <<  std::floor2( 4u ) << std::endl;
-    std::cout << "3 floor2: " <<  std::floor2( 3u ) << std::endl;
-    std::cout << "65556 floor2: " <<  std::floor2( 65556u ) << std::endl;
-}
-void log2p1_example()
-{
-    uint64_t number = 0b111100001; // 9 bits
-
-    std::cout << number << " log2p1: " <<  std::log2p1( number ) << std::endl;
-
-}
-
-void rotl_example()
-{
-    uint8_t i = 0b00011101;
-    std::cout << "i          = " << std::bitset<8>(i) << '\n';
-    std::cout << "rotl(i,0)  = " << std::bitset<8>(std::rotl(i,0)) << '\n';
-    std::cout << "rotl(i,1)  = " << std::bitset<8>(std::rotl(i,1)) << '\n';
-    std::cout << "rotl(i,4)  = " << std::bitset<8>(std::rotl(i,4)) << '\n';
-    std::cout << "rotl(i,9)  = " << std::bitset<8>(std::rotl(i,9)) << '\n';
-    std::cout << "rotl(i,-1) = " << std::bitset<8>(std::rotl(i,-1)) << '\n';
-}
-
-void rotr_example()
-{
-    uint8_t i = 0b00011101;
-    std::cout << "i          = " << std::bitset<8>(i) << '\n';
-    std::cout << "rotr(i,0)  = " << std::bitset<8>(std::rotr(i,0)) << '\n';
-    std::cout << "rotr(i,1)  = " << std::bitset<8>(std::rotr(i,1)) << '\n';
-    std::cout << "rotr(i,4)  = " << std::bitset<8>(std::rotr(i,4)) << '\n';
-    std::cout << "rotr(i,9)  = " << std::bitset<8>(std::rotr(i,9)) << '\n';
-    std::cout << "rotr(i,-1) = " << std::bitset<8>(std::rotr(i,-1)) << '\n';
-}
-
-void countl_zero_example()
-{
-    uint8_t i = 0b00011101;
-
-    std::cout << "Left zeros in: " << std::bitset< 8 >( i ).to_string() << " " << std::countl_zero( i ) << std::endl;
-}
-
-void countl_one_example()
-{
-    uint8_t i = 0b00011101;
-
-    std::cout << "Left ones in: " << std::bitset< 8 >( i ).to_string() << " " << std::countl_one( i ) << std::endl;
-}
-
-void countr_zero_example()
-{
-    uint8_t i = 0b00011101;
-
-    std::cout << "Right zeros in: " << std::bitset< 8 >( i ).to_string() << " " << std::countr_zero( i ) << std::endl;
-}
-
-void countr_one_example()
-{
-    uint8_t i = 0b00011101;
-
-    std::cout << "Right ones in: " << std::bitset< 8 >( i ).to_string() << " " << std::countr_one( i ) << std::endl;
-}
-
-void popcount_example()
-{
-    uint8_t i = 0b00011101;
-
-    std::cout << "All ones in: " << std::bitset< 8 >( i ).to_string() << " " << std::popcount( i ) << std::endl;
-}
-
 void endian_example()
 {
     if(std::endian::native == std::endian::big)
     {
-        std::cout << "BIG endian" << std::endl;
+        std::cout << "This machine uses BIG endian" << std::endl;
     }
     else if(std::endian::native == std::endian::little)
     {
-        std::cout << "little endian" << std::endl;
+        std::cout << "This machine uses little endian" << std::endl;
     }
     else
     {
-        std::cout << "unknown" << std::endl;
+        std::cout << "This machine endian is unknown" << std::endl;
     }
 }
 
-
-int main()
+void bit_examples()
 {
     endian_example();
-    ceil2_example();
-    floor2_example();
-    ispow2_example();
-    log2p1_example();
-    rotl_example();
-    rotr_example();
-    countl_zero_example();
-    countl_one_example();
-    countr_zero_example();
-    countr_one_example();
-    popcount_example();
+
+    uint16_t number = 0x1D10u; // 0b0001110100010000u;
+
+    std::cout << "Printing bits in number is easy using std::bitset" << std::endl;
+    std::cout << number << " as bitstring: " << std::bitset< 16 >( number ) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Counting bits" << std::endl;
+    std::cout << "how many actuall bits we need to represent the number?" << std::endl;
+    std::cout << number << " log2p1:       " <<  std::log2p1( number ) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "how many 0, or 1 bits is in the number from left or right" << std::endl;
+    std::cout << "To count bits from left use std::countl_zero or std::countl_one" << std::endl;
+    std::cout << "Left zeros in:  " << std::bitset< 16 >( number ) << " " << std::countl_zero( number ) << std::endl;
+    std::cout << "Left ones in:   " << std::bitset< 16 >( number ) << " " << std::countl_one( number ) << std::endl;
+
+    std::cout << "To count bits from right use std::countr_zero or std::countr_one" << std::endl;
+    std::cout << "Right zeros in: " << std::bitset< 16 >( number ) << " " << std::countr_zero( number ) << std::endl;
+    std::cout << "Right ones in:  " << std::bitset< 16 >( number ) << " " << std::countr_one( number ) << std::endl;
+
+    std::cout << "how many 1s in total are in number" << std::endl;
+    std::cout << "All ones in:    " << std::bitset< 16 >( number ) << " " << std::popcount( number ) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "To do some power operations we can use:" << std::endl;
+    std::cout << " - std::ispow2" << std::endl;
+    std::cout << " - std::floor2" << std::endl;
+    std::cout << " - std::ceil2" << std::endl;
+
+    uint16_t floor = std::floor2( number ); // find nearest integral power of two that is <= than number
+    uint16_t ceil = std::ceil2( number );   // find nearest integral power of two that is >= than number
+
+    std::cout << number << " ispow2: " << std::boolalpha << std::ispow2( number ) << std::endl;
+    std::cout << number << " floor2: " <<  std::floor2( number ) << std::endl;
+    std::cout << floor << " floor2: " <<  std::floor2( floor ) << std::endl;
+    std::cout << number << " ceil2:  " <<  std::ceil2( number ) << std::endl;
+    std::cout << ceil << " ceil2:  " <<  std::ceil2( ceil ) << std::endl;
+    std::cout << floor << " ispow2: " << std::boolalpha << std::ispow2( floor ) << std::endl;
+    std::cout << ceil << " ispow2: " << std::boolalpha << std::ispow2( ceil ) << std::endl;
+
+    std::cout << "Lets check bits just to give you an idea what is happening" << std::endl;
+    std::cout << "number in binary: "  << std::bitset< 16 >( number ) << std::endl;
+    std::cout << "floor in binary:  "  << std::bitset< 16 >( floor ) << std::endl;
+    std::cout << "ceil in binary:   "  << std::bitset< 16 >( ceil ) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "For shifting bits c++ has some options" << std::endl;
+    std::cout << "  - <<, >> - bitwise left/right shift" << std::endl;
+    std::cout << "  - std::rotl, std::rotr - bitwise left/right rotarion" << std::endl;
+
+    std::cout << "number in binary: " << std::bitset< 16 >( number ) << std::endl;
+    std::cout << "rotl(number, 8):  " << std::bitset< 16 >( std::rotl( number, 8 ) ) << std::endl;
+    std::cout << "number << 8:      " << std::bitset< 16 >( number << 8 ) << std::endl;
+    std::cout << "rotr(number, 8):  " << std::bitset< 16 >( std::rotr( number, 8 ) ) << std::endl;
+    std::cout << "number >> 8:      " << std::bitset< 16 >( number >> 8 ) << std::endl;
 }
 
 /**
-TODO: things to cover:
-    - bit_cast      ... PART2
-    - ispow2        ... OK
-    - ceil2         ... OK
-    - floor2        ... OK
-    - log2p1        ... OK
-    - rotl          ... OK
-    - rotr          ... OK
-    - countl_zero   ... OK
-    - countl_one    ... OK
-    - countr_zero   ... OK
-    - countr_one    ... OK
-    - popcount      ... OK
-    - endian        ... OK
-*/
-
+ * These examples show how to do bit manipulations and operation in C++
+ * Standart bit operation are shown as well as utility functions from C++20 STL bit.h
+ */
+int main()
+{
+    bit_examples();
+}
